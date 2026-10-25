@@ -69,16 +69,19 @@ def send_message(to, body):
     )
 
 
-@app.get("/webhook")
-def verify():
-    if (request.args.get("hub.mode") == "subscribe"
-            and request.args.get("hub.verify_token") == VERIFY_TOKEN):
-        return request.args.get("hub.challenge", ""), 200
-    return "Forbidden", 403
+PATHS = ["/", "/webhook", "/api/index", "/api/index/webhook"]
 
 
-@app.post("/webhook")
-def incoming():
+@app.route("/", defaults={"path": ""}, methods=["GET", "POST"])
+@app.route("/<path:path>", methods=["GET", "POST"])
+def handle(path):
+    if request.method == "GET":
+        if request.args.get("hub.mode") == "subscribe":
+            if request.args.get("hub.verify_token") == VERIFY_TOKEN:
+                return request.args.get("hub.challenge", ""), 200
+            return "Forbidden", 403
+        return "Peso bot running", 200
+
     data = request.get_json(silent=True) or {}
     try:
         for entry in data.get("entry", []):
@@ -88,14 +91,9 @@ def incoming():
                         continue
                     reply = build_reply(msg["text"]["body"])
                     send_message(msg["from"], reply)
-    except Exception as e:  # keep webhook returning 200 so Meta doesn't retry
+    except Exception as e:  # keep returning 200 so Meta doesn't retry
         print("error:", e)
     return "ok", 200
-
-
-@app.get("/")
-def health():
-    return "Peso bot running", 200
 
 
 if __name__ == "__main__":
