@@ -1,7 +1,7 @@
 {
   "rewrites": [
     { "source": "/webhook", "destination": "/api/index" },
-    { "source": "/privacy", "destination": "/api/index" },
+   { "source": "/privacy", "destination": "/api/index?page=privacy" },
     { "source": "/", "destination": "/api/index" }
   ]
 }
