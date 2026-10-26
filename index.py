@@ -69,6 +69,33 @@ def send_message(to, body):
     )
 
 
+PRIVACY_HTML = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy - Peso Bot</title>
+<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;line-height:1.6;color:#222}</style>
+</head><body>
+<h1>Privacy Policy</h1>
+<p>Last updated: October 2026</p>
+<p>Peso Bot is a small personal WhatsApp bot that converts prices from Mexican pesos (MXN) to euros (EUR).</p>
+<h2>What data is used</h2>
+<p>When you send a message to the bot, it reads the text of that message (for example a price) and your WhatsApp phone number, only to send the reply back to you.</p>
+<h2>What is stored</h2>
+<p>Nothing. The bot does not store messages, phone numbers or any personal data in a database. Messages are processed in memory and discarded.</p>
+<h2>Third parties</h2>
+<p>Messages travel through the WhatsApp Business Platform (Meta). Hosting is provided by Vercel. Exchange rates come from the public Frankfurter API; no personal data is sent to it.</p>
+<h2>Who can use it</h2>
+<p>The bot is private and limited to a few approved test users. It is not offered to the public.</p>
+<h2>Contact</h2>
+<p>Questions or requests to delete data: YOUR-EMAIL-HERE</p>
+</body></html>"""
+
+
+@app.get("/privacy")
+def privacy():
+    return PRIVACY_HTML, 200, {"Content-Type": "text/html; charset=utf-8"}
+
+
 PATHS = ["/", "/webhook", "/api/index", "/api/index/webhook"]
 
 
