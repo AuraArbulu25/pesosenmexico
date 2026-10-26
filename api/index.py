@@ -103,6 +103,8 @@ PATHS = ["/", "/webhook", "/api/index", "/api/index/webhook"]
 @app.route("/<path:path>", methods=["GET", "POST"])
 def handle(path):
     if request.method == "GET":
+                if request.args.get("page") == "privacy":
+            return privacy()
         if request.args.get("hub.mode") == "subscribe":
             if request.args.get("hub.verify_token") == VERIFY_TOKEN:
                 return request.args.get("hub.challenge", ""), 200
