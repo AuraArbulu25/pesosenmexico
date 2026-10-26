@@ -87,7 +87,7 @@ PRIVACY_HTML = """<!doctype html>
 <h2>Who can use it</h2>
 <p>The bot is private and limited to a few approved test users. It is not offered to the public.</p>
 <h2>Contact</h2>
-<p>Questions or requests to delete data: YOUR-EMAIL-HERE</p>
+<p>Questions or requests to delete data: aura.arbulu@iflry.org</p>
 </body></html>"""
 
 
